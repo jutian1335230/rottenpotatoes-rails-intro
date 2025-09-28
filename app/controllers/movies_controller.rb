@@ -11,6 +11,9 @@ class MoviesController < ApplicationController
     @ratings_to_show = params[:ratings]&.keys || @all_ratings
     # query movies filtered by ratings
     @movies = Movie.with_ratings(@ratings_to_show)
+    # apply sorting if specified
+    @sort_by = params[:sort_by]
+    @movies = @movies.order(@sort_by) if @sort_by.present?
   end
 
   def new
